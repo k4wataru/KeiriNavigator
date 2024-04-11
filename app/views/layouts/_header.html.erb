@@ -1,0 +1,34 @@
+<%= stylesheet_link_tag "header" %>
+<header class="sticky-top">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid justify-content-between">
+      <a class="navbar-brand" href="/"><span class="logo"><%= image_tag "IMG_3533-removebg-preview.png", class: "img-fluid", size: "190x100" %></span></a>
+      <div class="d-flex">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li>
+              <%= link_to about_path,class: 'nav-link text-dark' do %>
+              <i class="fas fa-link"></i> このサイトについて
+              <% end %>
+            </li>
+            <li>
+              <%= link_to root_path,class: 'nav-link text-dark' do %>
+              <i class="fa-solid fa-note-sticky"></i> 投稿一覧
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path,class: 'nav-link text-dark' do %>
+              <i class="fas fa-user-plus"></i> 新規登録
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_session_path ,class: 'nav-link text-dark' do %>
+              <i class="fas fa-sign-in-alt"></i> ログイン
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

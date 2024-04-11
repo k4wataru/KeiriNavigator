@@ -1,2 +1,14 @@
-<h1>Public::Homes#about</h1>
-<p>Find me in app/views/public/homes/about.html.erb</p>
+<%= stylesheet_link_tag "homes" %>
+<div class="container-fluid main">
+  <div class="row "> 
+    <div class="col-lg-6 d-flex flex-column justify-content-center mt-5 mb-5 pl-5">
+      <h1 style="text-align: left;">経理ナビゲーターとは</h1>
+      <p class="about_text mt-5" style="text-align: left;">このサイトは、経理業務に関する情報を共有し、知識を交換することができます。<br>
+      メンバー同士で経理業務に関する情報、知識を共有、交換し、経理業務に関する法的要件や税務上の疑問を解決できるコミュニティーサイトです。</p>
+      <%= link_to '過去の投稿はこちら', root_path, class: "btn btn-lg btn-primary mt-5" %>
+    </div>
+    <div class="col-lg-6 mt-5 mb-5">
+      <%= image_tag "18210_color.png", class: "img-fluid" %>
+    </div>
+  </div>
+</div>
