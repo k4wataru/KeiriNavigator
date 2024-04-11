@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   # ユーザー用
   scope module: :public do
     root to: "homes#top"  # ユーザーのトップページ
-    get "home/about"=>"homes#about"
+    get "about"=>"homes#about"
     resources :users, only: [:show, :edit, :update] do
       resources :relationships, only: [:create, :destroy]  # フォロー関連
       get 'followings', to: 'relationships#followings', as: 'followings'  # フォロー一覧
