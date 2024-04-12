@@ -6,6 +6,29 @@
       <div class="d-flex">
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
+            <% if admin_signed_in? %>
+            <% elsif user_signed_in? %>
+            <li>
+              <%= link_to about_path,class: 'nav-link text-dark' do %>
+              <i class="fas fa-link"></i> このサイトについて
+              <% end %>
+            </li>
+            <li>
+              <%= link_to root_path,class: 'nav-link text-dark' do %>
+              <i class="fa-solid fa-note-sticky"></i> 投稿一覧
+              <% end %>
+            </li>
+            <li>
+              <%= link_to user_path(current_user),class: 'nav-link text-dark' do %>
+              <i class="fas fa-home"></i> マイページ
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-dark' do %>
+              <i class="fas fa-sign-out-alt"></i> ログアウト
+            　<% end %>
+            </li>
+            <% else %>
             <li>
               <%= link_to about_path,class: 'nav-link text-dark' do %>
               <i class="fas fa-link"></i> このサイトについて
@@ -24,8 +47,9 @@
             <li>
               <%= link_to new_user_session_path ,class: 'nav-link text-dark' do %>
               <i class="fas fa-sign-in-alt"></i> ログイン
-              <% end %>
+            　<% end %>
             </li>
+            <% end %>
           </ul>
         </div>
       </div>

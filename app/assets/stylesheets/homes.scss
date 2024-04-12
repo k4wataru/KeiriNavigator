@@ -8,7 +8,7 @@
   letter-spacing: 1px;
 }
 
-.main {
+.main, .top_img {
   background: #ffcf37;
 }
 
@@ -21,4 +21,15 @@ h1 {
   font-family: "Noto Sans JP", sans-serif;
   font-weight: bold;
   letter-spacing: 1px;
+}
+
+.custom-img {
+  height: 300px; /* 任意の縦幅を指定 */
+}
+
+.top_img {
+  font-size: 40px;
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: bold;
+  letter-spacing: 6px;
 }
