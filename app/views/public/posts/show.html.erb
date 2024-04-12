@@ -1,2 +1,46 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
+<%= stylesheet_link_tag "homes" %> 
+<style>
+  /* 追加のスタイルはここに記述 */
+  .container {
+    margin-top: 50px; /* 上部のマージンを調整 */
+  }
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  .card-body {
+    padding: 20px;
+  }
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+          <h1><%= @post.title %></h1>
+          <p>Posted by: <%= @post.user.name %> on <%= @post.created_at.strftime("%B %d, %Y") %></p>
+          <p>Genre: <%= @post.genre.name %></p>
+          <p><%= @post.content %></p>
+          
+          <% if current_user == @post.user %>
+            <%= link_to "Edit", edit_post_path(@post), class: "btn btn-primary mr-2" %>
+            <%= link_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+          <% end %>
+          
+          <%= link_to "Back to My Page", user_path(current_user), class: "btn btn-secondary" %>
+        </div>
+      </div>
+      
+      <% @post.comments.each do |comment| %>
+        <div class="card">
+          <div class="card-body">
+            <p><%= comment.content %></p>
+            <p>Commented by: <%= comment.user.name %> on <%= comment.created_at.strftime("%B %d, %Y") %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
