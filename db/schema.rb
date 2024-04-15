@@ -81,10 +81,8 @@ ActiveRecord::Schema.define(version: 2024_04_10_112346) do
     t.string "title"
     t.text "content"
     t.integer "user_id", null: false
-    t.integer "genre_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["genre_id"], name: "index_posts_on_genre_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -115,6 +113,5 @@ ActiveRecord::Schema.define(version: 2024_04_10_112346) do
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "posts"
   add_foreign_key "favorites", "users"
-  add_foreign_key "posts", "genres"
   add_foreign_key "posts", "users"
 end
