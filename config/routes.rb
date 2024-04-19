@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'searches/search'
+  end
   # 管理者用
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
@@ -24,7 +27,9 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"  # ユーザーのトップページ
     get "about" => "homes#about"
-    get "users/my_page" => "users#show"
+    get "users/my_page" => "users#show" 
+    get  '/users/check' => 'users#check' # 退会確認画面
+    patch  '/users/withdraw' => 'users#withdraw' # 論理削除用のルーティング
     resources :users, only: [:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]  # フォロー関連
       get 'followings', to: 'relationships#followings', as: 'followings'  # フォロー一覧
@@ -34,8 +39,8 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]  # コメント
       resource :favorites, only: [:create, :destroy]  # いいね
       collection do
-        get :search, to: 'posts#search'  # 投稿検索
-        get :results, to: 'posts#search_results'  # 検索結果表示
+        get :search, to: 'searches#search'  # 投稿検索
+        get :results, to: 'searches#search_results'  # 検索結果表示
       end
     end
   end

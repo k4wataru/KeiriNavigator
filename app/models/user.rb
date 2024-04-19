@@ -10,5 +10,23 @@ class User < ApplicationRecord
          
   has_one_attached :image
   
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
+  
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @user = User.where("name LIKE?", "#{word}")
+    elsif search == "forward_match"
+      @user = User.where("name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @user = User.where("name LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @user = User.where("name LIKE?","%#{word}%")
+    else
+      @user = User.all
+    end
+  end
+  
   validates :name, presence: true, uniqueness: true #ユーザー名に一意性をもたせる
 end

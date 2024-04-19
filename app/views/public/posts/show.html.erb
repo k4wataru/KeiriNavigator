@@ -41,6 +41,18 @@
           </div>
         </div>
       <% end %>
+      
+      <% if user_signed_in? %>
+        <div class="card">
+          <div class="card-body">
+            <%= form_with(model: [@post, @post.comments.build], url: post_comments_path(@post), local: true) do |form| %>
+              <%= form.text_area :content, placeholder: "Add a comment...", class: "form-control mb-3" %>
+              <%= form.submit "Post Comment", class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      
     </div>
   </div>
 </div>

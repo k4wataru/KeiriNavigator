@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_user!
 
   def new
     @post = Post.new
@@ -38,9 +39,6 @@ end
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to posts_path
-  end
-
-  def search
   end
   
   private
