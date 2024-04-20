@@ -32,12 +32,11 @@
           <%= link_to "Back to My Page", user_path(current_user), class: "btn btn-secondary" %>
         </div>
       </div>
-      
       <% @post.comments.each do |comment| %>
         <div class="card">
           <div class="card-body">
             <p><%= comment.content %></p>
-            <p>Commented by: <%= comment.user.name %> on <%= comment.created_at.strftime("%B %d, %Y") %></p>
+            <p>Commented by: <%= comment.user ? comment.user.name : "Unknown" %> on <%= comment.created_at.strftime("%B %d, %Y") %></p>
           </div>
         </div>
       <% end %>
@@ -47,12 +46,11 @@
           <div class="card-body">
             <%= form_with(model: [@post, @post.comments.build], url: post_comments_path(@post), local: true) do |form| %>
               <%= form.text_area :content, placeholder: "Add a comment...", class: "form-control mb-3" %>
-              <%= form.submit "Post Comment", class: "btn btn-primary" %>
+              <%= form.submit "Comment", class: "btn btn-primary" %>
             <% end %>
           </div>
         </div>
       <% end %>
-      
     </div>
   </div>
 </div>
