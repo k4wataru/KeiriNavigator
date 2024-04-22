@@ -3,4 +3,21 @@ class Post < ApplicationRecord
   belongs_to :genre
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  
+  def self.looks(search, word)
+    if search == "perfect_match"
+      where("title LIKE ?", "#{word}")
+    elsif search == "forward_match"
+      where("title LIKE ?", "#{word}%")
+    elsif search == "backward_match"
+      where("title LIKE ?", "%#{word}")
+    elsif search == "partial_match"
+      where("title LIKE ?", "%#{word}%")
+    else
+      all
+    end
+  end
+
+  validates :title,presence:true
+  validates :content,presence:true,length:{maximum:500}
 end

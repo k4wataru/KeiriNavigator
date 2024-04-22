@@ -7,6 +7,25 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <% if admin_signed_in? %>
+            <li>
+              <%= link_to admin_root_path,class: 'nav-link text-dark' do %>
+              <i class="fas fa-link"></i> トップ
+              <% end %>
+            </li>
+            <li>
+              <%= link_to admin_genres_path,class: 'nav-link text-dark' do %>
+              <i class="fa-solid fa-note-sticky"></i> ジャンル一覧
+              <% end %>
+            </li>
+            <li>
+              <%= link_to admin_users_path,class: 'nav-link text-dark' do %>
+              <i class="fas fa-home"></i> ユーザー
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_admin_session_path, method: :delete,class: 'nav-link text-dark' do %>
+              <i class="fas fa-sign-out-alt"></i> ログアウト
+            　<% end %>
             <% elsif user_signed_in? %>
             <li>
               <%= link_to about_path,class: 'nav-link text-dark' do %>

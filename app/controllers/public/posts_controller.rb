@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_user!
 
   def new
     @post = Post.new
@@ -6,7 +7,7 @@ class Public::PostsController < ApplicationController
   
   def show
     @post = Post.find(params[:id])
-    # @post_comment = PostComment.new
+    @comment = Comment.new
   end
 
   def create
@@ -37,10 +38,7 @@ end
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to posts_path
-  end
-
-  def search
+    redirect_to root_path
   end
   
   private

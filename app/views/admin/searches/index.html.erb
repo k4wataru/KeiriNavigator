@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <% if @range == "User" %>
+    <div class="row">
+      <% @users.each do |user| %>
+        <div class="col-md-6">
+          <div class="question">
+            <h4><%= user.name %></h4>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="row">
+      <% @posts.each do |post| %>
+        <div class="col-md-6">
+          <div class="question">
+            <h4><%= post.title %></h4>
+            <p><%= post.content %></p>
+            <%= link_to "投稿へ", post_path(post), class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

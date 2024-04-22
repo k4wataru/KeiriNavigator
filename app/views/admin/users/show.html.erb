@@ -1,2 +1,57 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="container">
+  <h2 class="mt-4"><%= @user.name %> の詳細</h2>
+  <div class="row">
+    <div class="col-md-12 mt-3">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="card-title">ユーザー情報</h3>
+          <p><strong>名前:</strong> <%= @user.name %></p>
+          <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+          <p><strong>会員ステータス:</strong> 
+            <% if @user.is_deleted %>
+              退会済み 
+              <%= link_to "有効にする", admin_withdrawal_path(@user.id), method: :patch, class: "btn btn-success" %>
+            <% else %>
+              有効
+              <%= link_to "退会させる", admin_withdrawal_path(@user.id), method: :patch, class: "btn btn-danger" %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">投稿一覧</h3>
+          <% @user.posts.each do |post| %>
+            <div class="mb-3">
+              <h5 class="card-subtitle mb-2"><%= link_to post.title, admin_post_path(post) %></h5>
+              <p class="card-text"><strong>投稿日時:</strong> <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+              <p class="card-text"><strong>内容:</strong> <%= link_to post.content.truncate(50), admin_post_path(post) %></p>
+              <!-- 他の投稿情報も表示 -->
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">コメント一覧</h3>
+          <% @user.comments.each do |comment| %>
+            <div class="mb-3">
+              <p class="card-text"><strong>投稿名:</strong> <%= link_to comment.post.title, admin_post_path(comment.post) %></p>
+              <p class="card-text"><strong>コメント日時:</strong> <%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+              <p class="card-text"><strong>内容:</strong> <%= link_to comment.content.truncate(50), admin_post_path(comment.post) %></p>
+              <!-- 他のコメント情報も表示 -->
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>

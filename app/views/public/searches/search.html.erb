@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <% if @range == "User" %>
+    <% if @users.present? %>
+      <div class="row">
+        <% @users.each do |user| %>
+          <div class="col-md-6 mb-4">
+            <div class="user-box p-3 border rounded">
+              <h4><%= link_to user.name, user_path(user) %></h4>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-center">該当する結果はありません。</p>
+    <% end %>
+  <% else %>
+    <% if @posts.present? %>
+      <div class="row">
+        <% @posts.each do |post| %>
+          <div class="col-md-6 mb-4">
+            <div class="post-box p-3 border rounded">
+              <h4><%= post.title %></h4>
+              <p><%= post.content %></p>
+              <%= link_to "投稿へ", post_path(post), class: "btn btn-primary btn-sm" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-center">該当する結果はありません。</p>
+    <% end %>
+  <% end %>
+</div>

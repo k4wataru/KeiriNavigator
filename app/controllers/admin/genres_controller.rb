@@ -1,4 +1,5 @@
 class Admin::GenresController < ApplicationController
+  before_action :authenticate_admin! #管理者以外に触らせたくないページに記述
   def index
     @genres = Genre.all
     @genre = Genre.new
@@ -18,9 +19,18 @@ class Admin::GenresController < ApplicationController
   end
 
   def edit
+    @genre = Genre.find(params[:id])
   end
 
   def update
+    @genre = Genre.find(params[:id])
+    if @genre.update(genre_params)
+      flash[:notice] = "編集に成功しました。"
+      redirect_to admin_genres_path
+    else
+      flash.now[:notice] = "編集に失敗しました。"
+      render :edit
+    end
   end
 
   private
