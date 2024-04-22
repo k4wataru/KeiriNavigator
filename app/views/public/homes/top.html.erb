@@ -31,6 +31,7 @@
     margin-right: 10px;
   }
 </style>
+
 <div class="container mt-5">
   <%= form_tag(public_searches_search_path, method: :get) do %>
     <div class="search-container">
@@ -54,7 +55,9 @@
     <div class="question">
       <h2 class="mb-3"><%= post.title %></h2>
       <p><%= post.content %></p>
+      <p>投稿日: <%= post.created_at.strftime("%Y年%m月%d日") %></p>
       <%= link_to "詳細を見る", post_path(post), class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>
+

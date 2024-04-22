@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <% if @range == "ユーザー" %>
+    <div class="row">
+      <% @users.each do |user| %>
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to user.name, admin_user_path(user) %></h5>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% elsif @range == "コメント" %>
+    <div class="row">
+      <% @comments.each do |comment| %>
+        <div class="col-md-12 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <p><strong>コメント内容:</strong> <%= comment.content %></p>
+              <p><strong>ユーザー:</strong> <%= link_to comment.user.name, admin_user_path(comment.user) %></p>
+              <p><strong>投稿タイトル:</strong> <%= link_to comment.post.title, admin_post_path(comment.post) %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="row">
+      <% @posts.each do |post| %>
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <p class="card-text"><%= post.content %></p>
+              <%= link_to "投稿へ", admin_post_path(post), class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

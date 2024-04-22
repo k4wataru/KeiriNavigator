@@ -4,8 +4,17 @@ class Public::CommentsController < ApplicationController
     post = Post.find(params[:post_id])
     comment = current_user.comments.new(comment_params)
     comment.post_id = post.id
-    comment.save
-    redirect_to post_path(post)
+    if comment.save
+      redirect_to post_path(post), notice: "Comment was successfully created."
+    else
+      redirect_to post_path(post), alert: "Failed to create comment."
+    end
+  end
+  
+  def destroy
+    comment = Comment.find(params[:id])
+    comment.destroy
+    redirect_to post_path(comment.post), notice: "Comment was successfully deleted."
   end
 
   private

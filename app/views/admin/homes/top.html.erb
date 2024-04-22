@@ -1,2 +1,34 @@
-<h1>Admin::Homes#t1111op</h1>
-<p>Find me in app/views/admin/homes/top.html.erb</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="text-center mb-4">検索フォーム</h2>
+      <%= form_with url: search_admin_searches_path, method: :get do |form| %>
+        <div class="input-group mb-3">
+          <%= form.select :range, options_for_select(["ユーザー", "投稿", "コメント"]), {}, class: "form-select search-select" %>
+          <%= form.text_field :word, class: "form-control search-input", placeholder: "検索キーワード" %>
+          <%= form.select :search_type, options_for_select({"完全一致": "perfect_match", "前方一致": "forward_match", "後方一致": "backward_match", "部分一致": "partial_match"}), {}, class: "form-select search-select" %>
+          <button type="submit" class="btn btn-primary">検索</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="text-center mb-4">検索結果</h2>
+      <% if @posts.present? %>
+        <% @posts.each do |post| %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <p class="card-text"><%= post.content.truncate(150) %></p>
+              <%= link_to "詳細を見る", admin_post_path(post), class: "btn btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-center">該当する投稿はありません。</p>
+      <% end %>
+    </div>
+  </div>
+</div>
