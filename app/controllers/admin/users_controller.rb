@@ -1,4 +1,7 @@
 class Admin::UsersController < ApplicationController
+ before_action :ensure_guest_user, only: [:edit]
+ before_action :authenticate_user!, except: [:show, :index]
+ 
   def index
     @users = User.all
   end
@@ -33,4 +36,11 @@ class Admin::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :job,  :profile_image)
   end
+  
+  def ensure_guest_user
+    @user = User.find(params[:id])
+    if @user.email == "guest@example.com"
+      redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+    end
+  end  
 end
