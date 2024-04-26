@@ -29,8 +29,11 @@
             <%= link_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
           <% end %>
           <%= link_to "Back to My Page", user_path(current_user), class: "btn btn-secondary" %>
-　　　　　<td id="favorite_btn_<%= @post.id %>">
-          
+          <!--いいね機能ajax-partial-->
+          <div class="mb-4"></div>
+          <td id="favorite_buttons_<%= @post.id %>" >
+              <%= render "public/favorites/btn", post: @post %>
+          </td>
         </div>
       </div>
       <% @post.comments.each do |comment| %>
