@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     end
     resources :posts do
       resources :comments, only: [:create, :destroy]  # コメント
-      resource :favorites, only: [:create, :destroy]  # いいね
+      resource :favorites, only: [:create, :destroy]  # 参考になった
       collection do
         get :search, to: 'searches#search'  # 投稿検索
         get :results, to: 'searches#search_results'  # 検索結果表示

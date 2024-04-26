@@ -61,32 +61,102 @@
     font-size: 14px;
     color: #666;
   }
+  
+  .user-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* 丸みを持たせる */
+    object-fit: cover; /* 画像を親要素に合わせてクロップする */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加 */
+  }
+  
+  .follow-info {
+    margin-top: 20px;
+    display: flex; /* Flexboxを使用して横一列に並べる */
+  }
+  
+  .follow-stat {
+    display: flex;
+    align-items: center; /* 垂直方向に中央揃え */
+    margin-right: 20px;
+  }
+  
+  .follow-icon {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    margin-right: 10px;
+  }
+  
+  .follow-icon i {
+    font-size: 24px;
+  }
+  
+  .follow-count {
+    font-size: 18px;
+  }
+  
+  .follow-label {
+    font-size: 14px;
+    color: #666;
+  }
+
 </style>  
+
 
 <div class="container">
   <div class="user-details">
     <h2><%= @user.name %></h2>
     <p>職業: <%= @user.job %></p>
-    <!-- Placeholder image -->
-    <img src="https://via.placeholder.com/150" alt="User Image">
+    <!-- ユーザーの画像を表示する -->
+    <%= image_tag @user.get_image, class: "user-image mr-4" %>
+    <%= render 'public/relationships/btn', user: @user %>
+    <!-- フォロー数とフォロワー数を表示 -->
+    <div class="follow-info">
+      <div class="follow-stat">
+        <span class="follow-icon">
+          <%= link_to user_followings_path(@user) do %>
+            <i class="fas fa-user-friends"></i> <!-- FontAwesomeのアイコン -->
+          <% end %>
+        </span>
+        <span class="follow-count"><%= @user.following_count %></span>
+        <span class="follow-label">フォロー</span>
+      </div>
+      <div class="follow-stat">
+        <span class="follow-icon">
+          <%= link_to user_followers_path(@user) do %>
+            <i class="fas fa-users"></i> <!-- FontAwesomeのアイコン -->
+          <% end %>
+        </span>
+        <span class="follow-count"><%= @user.follower_count %></span>
+        <span class="follow-label">フォロワー</span>
+      </div>
+    </div>
   </div>
   <% if @user.email != "guest@example.com" %>
     <% if current_user == @user %>
       <div class="button-group">
-        <%= link_to "プロフィールを編集", edit_user_registration_path(@user) %>
+        <%= link_to "プロフィールを編集", edit_user_path(@user) %>
         <%= link_to "投稿を作成", new_post_path %>
       </div>
     <% end %>
   <% end %>
 
-  <h2>投稿一覧</h2>
-  <% @posts.each do |post| %>
-    <div class="post">
-      <h3><%= link_to post.title, post_path(post) %></h3>
-      <p><%= post.content %></p>
-      <div class="post-details">
-        <p>投稿日時: <%= post.created_at.strftime("%B %d, %Y") %></p>
+  <h2 class="mt-3">投稿一覧</h2>
+  <% if @posts.empty? %>
+    <p>投稿はありません</p>
+  <% else %>
+    <% @posts.each do |post| %>
+      <div class="post">
+        <h3><%= link_to post.title, post_path(post) %></h3>
+        <p><%= post.content %></p>
+        <div class="post-details">
+          <p>投稿日時: <%= post.created_at.strftime("%B %d, %Y") %></p>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>
