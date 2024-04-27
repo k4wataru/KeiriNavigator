@@ -1,0 +1,31 @@
+<style>
+
+  .user-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* 丸みを持たせる */
+    object-fit: cover; /* 画像を親要素に合わせてクロップする */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加 */
+  }
+</style>  
+
+<div class='row'>
+  <div class='col-md-12'>
+    <div class="card">
+      <div class="card-body">
+        <%= image_tag user.get_image, class: "user-image" %>
+        <h5 class="card-title">ユーザー名: <%= user.name %></h5>
+        <p class="card-text">職業: <%= user.job %></p>
+        <p class="card-text">フォロー: <%= link_to user.followings.count, user_followings_path(user) %></p>
+        <p class="card-text">フォロワー: <%= link_to user.followers.count, user_followers_path(user) %></p>
+        <% if current_user != user %>
+          <%= render "public/relationships/btn", user: user %>
+        <% else %>
+          <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
+            <i class="fas fa-user-cog"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

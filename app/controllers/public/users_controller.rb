@@ -8,6 +8,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts
+    @total_goods = @user.favorites.count  # ユーザーが受け取ったいいねの総数を取得
   end
   
   def update

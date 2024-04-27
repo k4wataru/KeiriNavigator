@@ -111,6 +111,7 @@
   <div class="user-details">
     <h2><%= @user.name %></h2>
     <p>職業: <%= @user.job %></p>
+    <p>参考になった 総数: <%= @total_goods %></p>
     <!-- ユーザーの画像を表示する -->
     <%= image_tag @user.get_image, class: "user-image mr-4" %>
     <%= render 'public/relationships/btn', user: @user %>
@@ -153,8 +154,16 @@
       <div class="post">
         <h3><%= link_to post.title, post_path(post) %></h3>
         <p><%= post.content %></p>
-        <div class="post-details">
-          <p>投稿日時: <%= post.created_at.strftime("%B %d, %Y") %></p>
+        <div class="row ml-1 mt-3">
+          <div class="col-xs-3 mr-3">
+            <p>投稿日: <%= post.created_at.strftime("%Y年%m月%d日") %></p>
+          </div>
+          <div class="col-xs-2 mr-3">
+            <p>ジャンル: <%= post.genre.name %></p>
+          </div>
+          <div class="col-xs-2">
+            <p>参考になった: <%= post.good_count %></p>
+          </div>
         </div>
       </div>
     <% end %>

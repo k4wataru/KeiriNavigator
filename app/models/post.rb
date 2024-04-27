@@ -21,6 +21,10 @@ class Post < ApplicationRecord
  def favorited_by?(user)
    favorites.exists?(user_id: user.id)
  end
+ 
+  def good_count
+    favorites.count
+  end
 
   validates :title,presence:true
   validates :content,presence:true,length:{maximum:500}

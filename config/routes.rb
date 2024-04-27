@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   namespace :public do
     get 'searches/search'
   end
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
-  
+
   devise_scope :user do
     post "users/guest_sign_in", to: "public/sessions#guest_sign_in"
   end
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:destroy]  # コメント削除（管理者用）
     resources :genres, only: [:index, :create, :edit, :destroy, :update]  # ジャンル管理
     patch "withdrawal/:id" => "users#withdrawal", as: "withdrawal"  # 退会機能
-    
+
     resources :searches, only: [:index] do
       collection do
         get :search
@@ -41,6 +42,9 @@ Rails.application.routes.draw do
     get "users/my_page" => "users#show"
     get  '/users/check' => 'users#check' # 退会確認画面
     patch  '/users/withdraw' => 'users#withdraw' # 論理削除用のルーティング
+    resources :groups, only:  [:new, :index, :show, :create, :edit, :update] do
+      resource :group_users, only: [:create, :destroy]
+    end
     resources :users, only: [:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]  # フォロー関連
       get 'followings', to: 'relationships#followings', as: 'followings'  # フォロー一覧
