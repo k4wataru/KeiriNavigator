@@ -1,0 +1,30 @@
+<style>
+  .user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* 丸みを持たせる */
+    object-fit: cover; /* 画像を親要素に合わせてクロップする */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 影を追加 */
+    border: 2px solid #ccc; /* 枠線を追加 */
+  }
+
+  .follower-heading {
+    font-size: 24px; /* フォントサイズを大きくする */
+    color: #007bff; /* Bootstrapの青色に合わせる */
+    margin-bottom: 20px; /* 下の余白を追加 */
+  }
+</style>
+
+<% if @users.present? %>
+  <h2 class="follower-heading">フォロワー</h2>
+  <% @users.each do |user| %>
+    <div class="follower">
+      <%= link_to user_path(user) do %>
+        <%= image_tag user.get_image, class: "user-image" %>
+        <%= user.name %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p>フォロワーはいません</p>
+<% end %>
