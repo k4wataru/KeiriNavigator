@@ -7,6 +7,7 @@ class Public::PostsController < ApplicationController
   
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments.order(selected: :desc)
     @comment = Comment.new
   end
 
@@ -39,6 +40,18 @@ end
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to root_path
+  end
+  
+  def select_comment
+    @post = Post.find(params[:post_id])
+    @post.update(selected_comment_id: params[:comment_id])
+    redirect_to post_path(@post)
+  end
+
+  def unselect_comment
+    @post = Post.find(params[:post_id])
+    @post.update(selected_comment_id: nil)
+    redirect_to post_path(@post)
   end
   
   private

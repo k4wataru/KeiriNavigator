@@ -3,29 +3,29 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+
   has_many :posts
   has_many :comments, dependent: :destroy
-  has_many :favorites, dependent: :destroy, through: :posts
+  has_many :favorites, dependent: :destroy
   has_many :group_users, dependent: :destroy
-         
+
   has_one_attached :image
-  
+
   def active_for_authentication?
     super && (is_deleted == false)
   end
   # フォローしている関連付け
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  
+
   # フォローされている関連付け
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-  
+
   # フォローしているユーザーを取得
   has_many :followings, through: :active_relationships, source: :followed
-  
+
   # フォロワーを取得
   has_many :followers, through: :passive_relationships, source: :follower
-  
+
     # フォロー数を取得
   def following_count
     followings.count
@@ -35,23 +35,23 @@ class User < ApplicationRecord
   def follower_count
     followers.count
   end
-  
+
   # 指定したユーザーをフォローする
   def follow(user)
     active_relationships.create(followed_id: user.id)
   end
-  
+
   # 指定したユーザーのフォローを解除する
   def unfollow(user)
     active_relationships.find_by(followed_id: user.id).destroy
   end
-  
+
   # 指定したユーザーをフォローしているかどうかを判定
   def following?(user)
     followings.include?(user)
   end
 
-  
+
   def get_image
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -61,14 +61,14 @@ class User < ApplicationRecord
   end
 
   GUEST_USER_EMAIL = "guest@example.com"
-  
+
     def self.guest
       find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
         user.password = SecureRandom.urlsafe_base64
         user.name = "guestuser"
       end
     end
-  
+
   def self.looks(search, word)
     if search == "perfect_match"
       where("name LIKE ?", "#{word}")
@@ -82,6 +82,6 @@ class User < ApplicationRecord
       all
     end
   end
-  
+
   validates :name, presence: true, uniqueness: true #ユーザー名に一意性をもたせる
 end

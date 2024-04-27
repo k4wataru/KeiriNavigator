@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   belongs_to :genre
+  belongs_to :selected_comment, class_name: "Comment", optional: true
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   

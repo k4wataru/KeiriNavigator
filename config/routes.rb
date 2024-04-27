@@ -51,7 +51,10 @@ Rails.application.routes.draw do
       get 'followers', to: 'relationships#followers', as: 'followers'  # フォロワー一覧
     end
     resources :posts do
-      resources :comments, only: [:create, :destroy]  # コメント
+      resources :comments, only: [:create, :destroy] do
+      patch 'select_comment', to: 'posts#select_comment', as: :select_comment
+      patch 'unselect_comment', to: 'posts#unselect_comment', as: :unselect_comment
+      end
       resource :favorites, only: [:create, :destroy]  # 参考になった
       collection do
         get :search, to: 'searches#search'  # 投稿検索
