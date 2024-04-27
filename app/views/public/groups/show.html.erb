@@ -1,0 +1,85 @@
+<style>
+  /* Custom CSS styles */
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-header {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .btn {
+    border-radius: 20px;
+  }
+
+  .list-group-item {
+    border-radius: 10px;
+  }
+</style>
+
+<div class="container">
+  <%= flash[:notice] %>
+  <div class="row">
+    <div class="col-md-3">
+      <%= render partial: "public/users/info", locals: { user: @user } %>
+      <%= render partial: "public/posts/form", locals: { post: @post } %>
+    </div>
+    <div class="col-md-9">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <h2 class="card-title mb-0">グループ情報</h2>
+        </div>
+        <div class="card-body">
+          <p><strong>グループ名:</strong> <%= @group.name %></p>
+          <p><strong>グループ紹介:</strong> <%= @group.introduction %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+          <h2 class="card-title mb-0">グループメンバー</h2>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <% @group.users.each do |user| %>
+              <li class="list-group-item"><%= link_to user.name, user_path(user) %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="card-footer text-center">
+          <% if @group.is_owned_by?(current_user) %>
+            <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-success btn-sm" %>
+          <% elsif @group.includesUser?(current_user) %>
+            <%= link_to 'Leave this group', group_group_users_path(@group), method: :delete, class: "btn btn-danger btn-sm" %>
+          <% else %>
+            <%= link_to 'Join this group', group_group_users_path(@group), method: :post, class: "btn btn-success btn-sm" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h2 class="card-title mb-0">メンバーの投稿</h2>
+        </div>
+        <div class="card-body">
+          <% if @group.users.present? %>
+            <% @group.users.each do |member| %>
+              <div class="mb-3">
+                <% if member.posts.present? %>
+                  <ul class="list-group list-group-flush">
+                    <% member.posts.each do |post| %>
+                      <li class="list-group-item"><%= link_to post.title, post_path(post) %></li>
+                    <% end %>
+                  </ul>
+                <% else %>
+                  <p>No posts by <%= member.name %> yet.</p>
+                <% end %>
+              </div>
+            <% end %>
+          <% else %>
+            <p>No members in this group.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

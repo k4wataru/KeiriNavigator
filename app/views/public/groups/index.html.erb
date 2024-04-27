@@ -1,0 +1,72 @@
+<style>
+  /* Custom CSS styles */
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .card-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .btn-edit {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+  }
+
+  .btn-edit:hover {
+    background-color: #218838;
+    border-color: #218838;
+    color: #fff;
+  }
+</style>
+
+<div class='container'>
+  <%= flash[:notice] %>
+  <div class='row'>
+    <div class='col-md-3'>
+      <%= render partial: "public/users/info", locals: { user: @user } %>
+      <%= render partial: "public/posts/form", locals: { post: @post } %>
+    </div>
+    <div class='col-md-9'>
+      <h2>グループ一覧</h2>
+      <% @groups.each do |group| %>
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%= link_to group.name, group_path(group) %></h5>
+                <p class="card-text"><%= group.introduction %></p>
+                <p class="card-text"><small class="text-muted">メンバー数: <%= group.group_users.count %></small></p>
+              </div>
+            </div>
+            <% if group.is_owned_by?(current_user) %>
+              <div class="col-md-4">
+                <div class="card-body">
+                  <%= link_to 'Edit', edit_group_path(group), class: "btn btn-sm btn-edit" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

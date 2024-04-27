@@ -1,0 +1,38 @@
+<style>
+  .user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* 丸みを持たせる */
+    object-fit: cover; /* 画像を親要素に合わせてクロップする */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 影を追加 */
+    border: 2px solid #ccc; /* 枠線を追加 */
+  }
+
+  .follow-heading {
+    font-size: 24px; /* フォントサイズを大きくする */
+    color: #007bff; /* Bootstrapの青色に合わせる */
+    margin-bottom: 20px; /* 下の余白を追加 */
+  }
+</style>
+
+<div class="container mt-3">
+  <% if @users.present? %>
+    <h2 class="follow-heading">フォロー</h2>
+    <div class="row">
+      <% @users.each do |user| %>
+        <div class="col-md-12 mb-3">
+          <div class="d-flex align-items-center">
+            <%= link_to user_path(user) do %>
+              <%= image_tag user.get_image, class: "user-image mr-3" %>
+            <% end %>
+            <div>
+              <h5><%= link_to user.name, user_path(user) %></h5>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>フォローはいません</p>
+  <% end %>
+</div>

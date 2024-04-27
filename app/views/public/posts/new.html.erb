@@ -64,22 +64,22 @@
 
 <body>
 <div class="container">
-  <h1>New Post</h1>
+  <h1>新しい投稿</h1>
   <%= form_with(model: @post, local: true) do |f| %>
     <div class="form-group">
-      <%= f.label :title %>
+      <%= f.label :投稿タイトル %>
       <%= f.text_field :title, class: "form-control" %>
     </div>
     <div class="form-group">
-      <%= f.label :content %>
+      <%= f.label :内容 %>
       <%= f.text_area :content, class: "form-control" %>
     </div>
     <div class="form-group">
-      <%= f.label :genre_id, "Genre" %>
+      <%= f.label :genre_id, "ジャンル" %>
       <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: "Select Genre" }, class: "form-control" %>
     </div>
     <div class="form-group">
-      <%= f.submit "Create Post", class: "btn btn-primary" %>
+      <%= f.submit "新規投稿", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>

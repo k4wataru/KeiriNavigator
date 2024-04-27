@@ -1,22 +1,22 @@
-<div class="container">
+<div class="container mt-3">
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      <h1>Edit Post</h1>
+      <h1>投稿編集</h1>
       <%= form_with(model: @post, url: post_path(@post), method: :patch) do |form| %>
         <div class="form-group">
-          <%= form.label :title %>
+          <%= form.label :投稿タイトル %>
           <%= form.text_field :title, class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= form.label :content %>
+          <%= form.label :内容 %>
           <%= form.text_area :content, class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= form.label :genre_id, "Genre" %>
+          <%= form.label :genre_id, "ジャンル" %>
           <%= form.collection_select :genre_id, Genre.all, :id, :name, { prompt: "Select genre" }, class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= form.submit "Update Post", class: "btn btn-primary" %>
+          <%= form.submit "投稿を更新", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>
