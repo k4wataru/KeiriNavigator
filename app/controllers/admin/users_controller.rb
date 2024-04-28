@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
  before_action :ensure_guest_user, only: [:edit]
- before_action :authenticate_user!, except: [:show, :index]
+ before_action :authenticate_admin!, except: [:show, :index]
  
   def index
     @users = User.all
