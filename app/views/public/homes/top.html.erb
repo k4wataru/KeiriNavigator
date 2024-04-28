@@ -33,14 +33,16 @@
 </style>
 
 <div class="container mt-5">
-  <%= form_tag(public_searches_search_path, method: :get) do %>
-  <%= link_to "グループを作成する", new_group_path %>｜<%= link_to "グループ一覧", groups_path %>
-    <div class="search-container">
-      <%= select_tag :range, options_for_select(["User", "Post"]), class: "search-select" %>
-      <%= text_field_tag :word, nil, class: "search-input", placeholder: "検索キーワード" %>
-      <%= select_tag :search_type, options_for_select({"完全一致": "perfect_match", "前方一致": "forward_match", "後方一致": "backward_match", "部分一致": "partial_match"}), class: "search-select" %>
-      <%= submit_tag "検索", class: "btn btn-primary" %>
-    </div>
+  <% if user_signed_in? %>
+    <%= form_tag(public_searches_search_path, method: :get) do %>
+    <%= link_to "グループを作成する", new_group_path %>｜<%= link_to "グループ一覧", groups_path %>
+      <div class="search-container">
+        <%= select_tag :range, options_for_select(["User", "Post"]), class: "search-select" %>
+        <%= text_field_tag :word, nil, class: "search-input", placeholder: "検索キーワード" %>
+        <%= select_tag :search_type, options_for_select({"完全一致": "perfect_match", "前方一致": "forward_match", "後方一致": "backward_match", "部分一致": "partial_match"}), class: "search-select" %>
+        <%= submit_tag "検索", class: "btn btn-primary" %>
+      </div>
+    <% end %>
   <% end %>
   <div class="top_img d-flex justify-content-between align-items-center my-4">
     <div>

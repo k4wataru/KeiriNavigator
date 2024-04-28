@@ -1,7 +1,8 @@
 <div class="container mt-5">
+  
   <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <h2 class="text-center">ログイン</h2>
+    <div class="col-md-6 offset-md-3 mt-5">
+      <h2 class="text-center mt-5">ログイン</h2>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-group">
           <%= f.label :email, class: "form-label" %>
@@ -20,14 +21,15 @@
           </div>
         <% end %>
 
-        <div class="text-center mt-4">
+        <div class="text-center mt-4 md-5">
           <%= f.submit "ログイン", class: "btn btn-primary" %>
+          <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block sign_in mt-5" , method: :post %>
         </div>
       <% end %>
-
-      新規登録は<%= render "public/shared/links" %>
+      <div class="text-center mt-4 md-5">
+        新規登録は<%= render "public/shared/links" %>
+        <%= link_to "管理者ログイン", new_admin_session_path, method: :post %>
+     </div>
     </div>
-  </div>
+  </div>  
 </div>
-<div class="row mt-3">
-  <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
