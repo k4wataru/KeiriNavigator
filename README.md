@@ -42,3 +42,6 @@
 - IDE：Cloud9
 ​
 ## 使用素材
+- フリー素材として以下を使用
+  ソコスト(https://soco-st.com/)
+  Hatchful(https://www.shopify.com/jp/tools/logo-maker)
