@@ -12,6 +12,7 @@ class Public::GroupsController < ApplicationController
       @post = Post.new
       @group = Group.find(params[:id])
       @user = User.find(params[:id])
+      @owner = @group.owner
     end
   
     def new
@@ -42,7 +43,7 @@ class Public::GroupsController < ApplicationController
     private
   
     def group_params
-      params.require(:group).permit(:name, :introduction, :group_image)
+      params.require(:group).permit(:name, :introduction)
     end
   
     def ensure_correct_user

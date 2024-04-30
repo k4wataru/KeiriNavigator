@@ -22,7 +22,7 @@
   <%= flash[:notice] %>
   <div class="row">
     <div class="col-md-3">
-      <%= render partial: "public/users/info", locals: { user: @user } %>
+      <%= render partial: "public/users/info", locals: { user: @owner } %>
       <%= render partial: "public/posts/form", locals: { post: @post } %>
     </div>
     <div class="col-md-9">
@@ -42,15 +42,19 @@
         <div class="card-body">
           <ul class="list-group list-group-flush">
             <% @group.users.each do |user| %>
-              <li class="list-group-item"><%= link_to user.name, user_path(user) %></li>
+              <li class="list-group-item"><%= link_to user.name, user_path(user) %>
+              <% if @group.is_owned_by?(current_user) || user == current_user %>
+                <%= link_to 'ユーザーを脱退させる', owner_destroy_group_group_users_path(@group, @group_user), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: '本当に脱退させますか？' } %>
+              <% end %>
             <% end %>
+            </li>
           </ul>
         </div>
         <div class="card-footer text-center">
           <% if @group.is_owned_by?(current_user) %>
             <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-success btn-sm" %>
           <% elsif @group.includesUser?(current_user) %>
-            <%= link_to 'Leave this group', group_group_users_path(@group), method: :delete, class: "btn btn-danger btn-sm" %>
+            <%= link_to 'Leave this group', group_group_users_path(@group, current_user), method: :delete, class: "btn btn-danger btn-sm" %>
           <% else %>
             <%= link_to 'Join this group', group_group_users_path(@group), method: :post, class: "btn btn-success btn-sm" %>
           <% end %>
@@ -83,3 +87,4 @@
     </div>
   </div>
 </div>
+

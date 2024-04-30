@@ -43,7 +43,9 @@ Rails.application.routes.draw do
     get  '/users/check' => 'users#check' # 退会確認画面
     patch  '/users/withdraw' => 'users#withdraw' # 論理削除用のルーティング
     resources :groups, only:  [:new, :index, :show, :create, :edit, :update] do
-      resource :group_users, only: [:create, :destroy]
+      resource :group_users, only: [:create, :destroy] do
+        delete :owner_destroy, on: :member
+      end
     end
     resources :users, only: [:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]  # フォロー関連
