@@ -41,3 +41,4 @@ module Vision
       end
     end
   end
+end
