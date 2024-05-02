@@ -2,7 +2,7 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update]
   before_action :ensure_guest_user, only: [:edit]
-  
+
   def edit
   end
 
@@ -11,7 +11,7 @@ class Public::UsersController < ApplicationController
     @posts = @user.posts
     @total_goods = @user.favorites.count  # ユーザーが受け取ったいいねの総数を取得
   end
-  
+
   def update
     if @user.update(user_params)
       redirect_to user_path(@user), notice: "You have updated user successfully."
@@ -25,7 +25,7 @@ class Public::UsersController < ApplicationController
 
   def sessions
   end
-  
+
   def withdraw
     @user = User.find(current_user.id)
     # is_deletedカラムをtrueに変更することにより削除フラグを立てる
@@ -34,7 +34,7 @@ class Public::UsersController < ApplicationController
     flash[:notice] = "退会処理を実行いたしました"
     redirect_to root_path
   end
-  
+
   private
 
   def user_params
@@ -47,11 +47,11 @@ class Public::UsersController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
-  
+
   def ensure_guest_user
     @user = User.find(params[:id])
     if @user.email == "guest@example.com"
       redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
     end
-  end  
+  end
 end

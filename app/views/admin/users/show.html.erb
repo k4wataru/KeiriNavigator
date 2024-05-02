@@ -32,6 +32,7 @@
               <h5 class="card-subtitle mb-2"><%= link_to post.title, admin_post_path(post) %></h5>
               <p class="card-text"><strong>投稿日時:</strong> <%= post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
               <p class="card-text"><strong>内容:</strong> <%= link_to post.content.truncate(50), admin_post_path(post) %></p>
+              <p class="sentiment-score <%= sentiment_color(post.score) %>">本文の感情分析スコア <%= post.score %></p>
               <!-- 他の投稿情報も表示 -->
             </div>
           <% end %>
@@ -47,6 +48,7 @@
               <p class="card-text"><strong>投稿名:</strong> <%= link_to comment.post.title, admin_post_path(comment.post) %></p>
               <p class="card-text"><strong>コメント日時:</strong> <%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></p>
               <p class="card-text"><strong>内容:</strong> <%= link_to comment.content.truncate(50), admin_post_path(comment.post) %></p>
+              <p class="sentiment-score <%= sentiment_color(comment.score) %>">コメントの感情分析スコア <%= comment.score %></p>
               <!-- 他のコメント情報も表示 -->
             </div>
           <% end %>

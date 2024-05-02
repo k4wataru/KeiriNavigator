@@ -14,6 +14,7 @@ class Public::PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.score = Language.get_data(post_params[:content])
     @post.user_id = current_user.id
     if @post.save
       redirect_to post_path(@post), notice: "You have created post successfully."

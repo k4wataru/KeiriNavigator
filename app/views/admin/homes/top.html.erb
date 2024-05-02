@@ -21,6 +21,7 @@
             <div class="card-body">
               <h5 class="card-title"><%= post.title %></h5>
               <p class="card-text"><%= post.content.truncate(150) %></p>
+              <p class="sentiment-score <%= sentiment_color(post.score) %>">本文の感情分析スコア <%= post.score %></p>
               <%= link_to "詳細を見る", admin_post_path(post), class: "btn btn-primary" %>
             </div>
           </div>
